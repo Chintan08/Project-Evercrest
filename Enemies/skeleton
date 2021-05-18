@@ -1,0 +1,64 @@
+from random import randint
+from Core.Colors import Colors
+
+
+class :
+    type = "enemy"
+
+    maxhp = 0
+    hp = 0
+    armor = 0
+    armor_percent = 0.0  # this will never be random
+    dmg = 0
+    speed = 0
+    crc = 0.0
+
+    hp_range = ()
+    armor_range = ()
+    dmg_range = ()
+    speed_range = ()
+    crc_range = ()
+
+    can_be_burned =
+
+    abilities = []
+
+    discovered = False
+
+    loot_table = {range(): }
+
+    name = ""
+    undiscovered_desc = ""
+    desc = "\n" \
+           f"{Colors.Green}HP Range{Colors.Reset}: {Colors.LightGreen}{hp_range[0]} - {hp_range[1]} {Colors.Green}HP\n" \
+           f"{Colors.Yellow}Armor Range: {Colors.LightYellow}{armor_range[0]} - {armor_range[1]} {Colors.Yellow}Armor\n" \
+           f"{Colors.Red}Damage Range: {Colors.LightRed}{dmg_range[0]} - {dmg_range[1]} {Colors.Red}DMG\n" \
+           f"{Colors.Magenta}CRC Range: {Colors.LightMagenta}{crc_range[0]} - {crc_range[1]} {Colors.Magenta}CRC\n" \
+           f"{Colors.Blue}SPD Range: {Colors.LightBlue}{speed_range[0]} - {speed_range[1]} {Colors.Blue}SPD{Colors.Reset}\n" \
+           f"{Colors.White}Abilities: {abilities[].name}\n"
+
+    def __init__(self, maxhp, armor, dmg, crc, speed):
+        self.maxhp = maxhp
+        self.hp = maxhp
+        self.armor = armor
+        self.dmg = dmg
+        self.crc = crc
+        self.speed = speed
+
+    # a method that chooses your next ability, using the context given through combat
+    @staticmethod
+    def choose(combat):
+
+
+    # drops items
+    @staticmethod
+    def drop():
+        item = randint(0, 3) # picks a random number to see if it falls in the range if one of the items in loot_table
+        for dict_key in .loot_table:
+            if item in dict_key:
+                return .loot_table[dict_key]
+
+    # drops money
+    @staticmethod
+    def money():
+        return randint(30, 60)

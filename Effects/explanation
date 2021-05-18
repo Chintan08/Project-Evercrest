@@ -1,0 +1,13 @@
+Here's how this works:
+
+Effects have three methods:
+
+Initial Effect
+A constant effect, that gets called on every round. Effect duration is subtracted here.
+After duration is over, a revert method is called to revert the effects.
+
+Cooldown is handled through the effect itself, not through combat
+All combat does is applies effects to a list and calls on the constant.
+
+Effects are not hard coded; this means that each individual ability can apply its own unique version of an effect.
+Ex: Ability A calls on Burn, and gives it a damage value of 5. Ability B calls on Burn, and gives it a damage value of 10. These are two different effects.

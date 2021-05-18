@@ -1,0 +1,55 @@
+from Core.Colors import Colors
+
+
+class :
+
+    type = "ability"
+
+    # import the style of the ability
+    style =
+
+    discovered = False
+
+    name = f"{Colors.}{Colors.Reset}"
+    desc = f"" \
+           f"\n{Colors.Magenta}Type:{Colors.LightMagenta}{style.name}{Colors.Reset}"
+
+    # +1
+    cooldown = 3
+    cur_cd = 0
+
+    # variables like damage and others that this ability might use
+    var1 =
+    var2 =
+    ...
+
+    def __init__(self):
+
+        dmg = self.dmg
+        cur_cd = self.cur_cd
+        cooldown = self.cooldown
+
+    def action(self, combat, caster, casted):
+
+        # when applying an effect, check to see if there are no duplicates
+        # should be last in action
+        self.check_effect(combat, caster, casted)
+
+    # runs from combat, check to see if your special is met to proc it, can use combat and other things to make this work
+    # get creative
+    def special(self, combat, caster, casted):
+
+
+    # use this method ONLY if this ability applies an effect
+    # comment out if it doesn't with ctrl + fslash
+
+    def check_effect(self, combat, caster, casted):
+
+        effect_count = 0
+        for effect in combat.effects[casted.type]:
+
+            if effect.type == .type:
+                effect_count += 1
+
+        if effect_count < .stack: # changes how many times this effect can stack
+            combat.effects[casted.type].append( (combat, caster, casted, ))
