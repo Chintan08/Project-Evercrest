@@ -1,4 +1,5 @@
 from Utility.colors import colors
+from Utility.dialogue import dialogue
 
 
 class cripple:
@@ -9,6 +10,9 @@ class cripple:
     arm_reduc = 0.0
     arm_pen_reduc = 0.0
     duration = 2
+
+    caster = None
+    casted = None
 
     # how many times can this effect stack
     stack = 1
@@ -29,40 +33,43 @@ class cripple:
         self.arm_reduc = arm
         self.arm_pen_reduc = arm_pen
 
+        self.caster = caster
+        self.casted = casted
+
         # run the initial phase
-        self.initial(combat, caster, casted)
+        self.initial(combat)
 
     # what runs on start
-    def initial(self, combat, caster, casted):
-        print(f"{colors.LightRed}{casted.name}{colors.Red} has been {colors.LightRed}Crippled!{colors.Red}")
+    def initial(self, combat):
+        dialogue.dia(None, f"{colors.LightRed}{self.casted.name}{colors.Red} has been {colors.LightRed}Crippled!{colors.Red}")
 
         # how much you took away
-        self.damage = casted.dmg*self.dmg_reduc
-        self.speed = casted.speed*self.spd_reduc
-        self.armor = casted.armor*self.arm_reduc
-        self.armor_percent = casted.armor_percent*self.arm_pen_reduc
+        self.damage = self.casted.dmg*self.dmg_reduc
+        self.speed = self.casted.speed*self.spd_reduc
+        self.armor = self.casted.armor*self.arm_reduc
+        self.armor_percent = self.casted.armor_percent*self.arm_pen_reduc
 
         # apply effect
-        casted.dmg *= (1-self.dmg_reduc)
-        casted.speed *= (1-self.spd_reduc)
-        casted.armor *= (1-self.arm_reduc)
-        casted.armor_percent *= (1-self.arm_pen_reduc)
+        self.casted.dmg *= (1-self.dmg_reduc)
+        self.casted.speed *= (1-self.spd_reduc)
+        self.casted.armor *= (1-self.arm_reduc)
+        self.casted.armor_percent *= (1-self.arm_pen_reduc)
 
     # called from combat once effect is appended from ability
-    def constant(self, combat, caster, casted):
+    def constant(self, combat):
 
         # subtract duration after effect constant runs, then see if it needs to be reverted
         self.duration -= 1
         if self.duration <= 0:
-            self.revert(combat, caster, casted)
+            self.revert(combat)
 
     # kills the effect, but can do other things on revert
-    def revert(self, combat, caster, casted):
+    def revert(self, combat):
 
-        casted.dmg += self.damage
-        casted.speed += self.speed
-        casted.armor += self.armor
-        casted.armor_percent += self.armor_percent
+        self.casted.dmg += self.damage
+        self.casted.speed += self.speed
+        self.casted.armor += self.armor
+        self.casted.armor_percent += self.armor_percent
 
-        print(f"\n{colors.LightBlue}{casted.name} is no longer Crippled.{colors.Reset}\n")
+        dialogue.dia(None, f"\n{colors.LightBlue}{self.casted.name} is no longer Crippled.{colors.Reset}")
         combat.kill_effect()

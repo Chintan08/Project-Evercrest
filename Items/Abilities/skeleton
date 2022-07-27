@@ -1,48 +1,56 @@
-from Core.Colors import Colors
-
+from Utility.colors import colors
+from Utility.dialogue import dialogue
 
 class :
 
+    # ABILITIES CAN BE RACE LOCKED
+    # THIS IS DONE THROUGH THE WAY IT IS DROPPED, NOT THROUGH THE ABILITY
+    # YOU SHOULD NEVER HAVE AN ABILITY THAT IS UNUSABLE BY YOUR RACE
+
+    # DO NOT CHANGE THIS; the lexicon uses this
     type = "ability"
 
     # import the style of the ability
     style =
 
-    discovered = False
+    # cooldown should be +1 of the ability's actual cooldown; this is because of how combat cooldowns work
+    cooldown =
 
-    name = f"{Colors.}{Colors.Reset}"
-    desc = f"" \
-           f"\n{Colors.Magenta}Type:{Colors.LightMagenta}{style.name}{Colors.Reset}"
+    # ability name and description
+    # if the description has a filled in variable, you do not need to change it
+    name = f"{colors.} {colors.Reset}"
+    desc = f" DESCRIPTION GOES HERE " \
+           f"\n{colors.Magenta}Type: {colors.LightMagenta}{style.name}{colors.Reset}" \
+           f"\n{colors.Blue}Special: {colors.LightBlue}SPECIAL DESCRIPTION GOES HERE" \
+           f"\n{colors.Green}Special Cooldown: {colors.LightGreen}{cooldown-1} Rounds" \
+           f"\n{colors.Red}Damage: {colors.LightRed}DAMAGE EQUATION GOES HERE; CAN DELETE IF IT DOES NO DAMAGE OR REPLACE IT FOR SOMETHING ELSE" \
+           f"\n{colors.Green}Effect: {colors.LightGreen}EFFECT DESCRIPTION GOES HERE; DELETE IF YOUR ABILITY HAS NO EFFECT" \
+           f"\n{colors.Yellow}Level Bonus: {colors.LightYellow}LEVEL BONUS GOES HERE; WHAT DOES YOUR STYLE LEVELS DO FOR THIS ABILITY?{colors.Reset}"
 
-    # +1
-    cooldown = 3
+    # DO NOT CHANGE THIS; combat uses this
     cur_cd = 0
 
-    # variables like damage and others that this ability might use
-    var1 =
-    var2 =
-    ...
+    # Extra global variables this ability needs can be put here; you can put as many as you want
 
+    # a constructor is not necessary
     def __init__(self):
+        pass
 
-        dmg = self.dmg
-        cur_cd = self.cur_cd
-        cooldown = self.cooldown
-
+    # when the ability is called in combat, this runs
     def action(self, combat, caster, casted):
 
         # when applying an effect, check to see if there are no duplicates
         # should be last in action
+        # if your ability does not use an effect, delete this line
         self.check_effect(combat, caster, casted)
 
-    # runs from combat, check to see if your special is met to proc it, can use combat and other things to make this work
-    # get creative
+    # when your ability is cast, combat then runs special. When all your swings are done, combat calls special again.
+    # this means that you can use the last special call to view all abilities used (see devastating punch) or use it just once on the first call (see bull swipe)
     def special(self, combat, caster, casted):
 
 
     # use this method ONLY if this ability applies an effect
-    # comment out if it doesn't with ctrl + fslash
-
+    # delete this method if your ability has no effect; this is an internal ability and does not interact with combat
     def check_effect(self, combat, caster, casted):
 
         effect_count = 0
@@ -52,4 +60,4 @@ class :
                 effect_count += 1
 
         if effect_count < .stack: # changes how many times this effect can stack
-            combat.effects[casted.type].append( (combat, caster, casted, ))
+            combat.effects[casted.type].append( EFFECT NAME GOES HERE(combat, caster, casted, VARIABLES EFFECT NEEDS))

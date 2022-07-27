@@ -9,24 +9,24 @@ class fists:
     speed = 0.0
     armor = 0.0
     armor_percent = 0.0
-    immune_to_burn = False
+    xp_bonus = 0.0
+    fire_resistance = 0.0
+    shock_resistance = 0.0
+    poison_amp = 0.0
 
     type = "weapon"
     wclass = "brawling"
 
-    discovered = False
-
     recipe = {}
-    sell = 12.5
-    buy = 25.0
+    sell = None
+    buy = 0
 
     lvl_req = 0
 
     name = f"{colors.White}Fists{colors.Reset}"
-    desc = f"Your Fists... how did you discover your fists?" \
-           f"\n{colors.Red}ATK{colors.Reset}: {colors.LightRed}{dmg}{colors.Reset} " \
-           f"\n{colors.Magenta}CRIT%{colors.Reset}: {colors.LightMagenta}{crc}{colors.Reset}"
+    desc = f"Your Fists, the only weapon you need!" \
+           f"\n{colors.Cyan}Weapon Class: {colors.LightCyan}{wclass.upper()}{colors.Reset}" \
+
 
     def __init__(self):
         pass
-

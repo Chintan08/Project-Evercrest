@@ -1,10 +1,9 @@
 from Core.menus import gen_menu_yn, gen_menu_num
 from Utility.colors import colors
 from time import sleep
+from Utility.equipment import equipment
 
-
-# TODO:
-# it seems like I can strip this down and use gen_menu_nums to shrink the amount of lines into the double digits.
+# TODO: redo this cringe
 class shop:
 
     @staticmethod
@@ -65,13 +64,14 @@ class shop:
                                         shop_options[a][b - 1].type == "boots":
 
                                     for index in range(0, c):
-                                        player.add_armor_inv(shop_options[a][b - 1].type, shop_options[a][b - 1])
-                                        player.money -= shop_options[a][b].buy
+                                        equipment.add_to_inv(shop_options[a][b - 1])
+                                        player.money -= shop_options[a][b-1].buy
+
                                     shop.shop(1, shop_options, player)
 
                                 else:
                                     for index in range(0, c):
-                                        player.add_to_inv(shop_options[a][b - 1].type, shop_options[a][b - 1])
+                                        equipment.add_to_inv(shop_options[a][b - 1])
                                         player.money -= shop_options[a][b - 1].buy
                                     shop.shop(1, shop_options, player)
 
@@ -96,48 +96,53 @@ class shop:
                               f"{colors.Cyan}Back{colors.Reset}"],
                              "Pick an option: ", 0)
 
-            list = {1: player.inventory["weapon"], 2: player.inventory["helmet"], 3: player.inventory["chestplate"],
-                    4: player.inventory["leggings"], 5: player.inventory["boots"], 6: player.inventory["accessory"],
-                    7: player.inventory["material"]}
+            item_list = {1: player.inventory["weapon"], 2: player.inventory["helmet"], 3: player.inventory["chestplate"],
+                         4: player.inventory["leggings"], 5: player.inventory["boots"], 6: player.inventory["accessory"],
+                         7: player.inventory["material"]}
 
             while True:
                 if a != 8:
                     total_index = 0
                     print(f"Here's what you have: \n")
 
-                    if len(list[a]) < 1:
+                    if len(item_list[a]) < 1:
                         print(f"{colors.Red}You have nothing.{colors.Reset}\n")
                         shop.shop(2, shop_options, player)
 
-                    for index in range(0, len(list[a])):
-                        if list[a][index].sell is None:
-                            print(f"{index + 1}. {list[a][index].name}: Unsellable!")
+                    for index in range(0, len(item_list[a])):
+                        if item_list[a][index].sell is None:
+                            print(f"{index + 1}. {item_list[a][index].name}: Unsellable!")
                         else:
-                            print(f"{index + 1}. {list[a][index].name}: ${list[a][index].sell}")
+                            print(f"{index + 1}. {item_list[a][index].name}: ${item_list[a][index].sell}")
                         total_index = index + 1
                     print(f"{total_index + 1}. Back\n")
 
                     try:
                         b = int(input(f"What would you like to {colors.Red}sell{colors.Reset}? (Input number)"))
 
-                        if b not in range(1, len(list[a]) + 2):
+                        if b not in range(1, len(item_list[a]) + 2):
                             raise ValueError
 
-                        if list[a][b - 1].sell is None:
+                        if b == total_index + 1:
+                            shop.shop(2, shop_options, player)
+
+                        if item_list[a][b - 1].sell is None:
                             print(f"\n{colors.Red}This item is priceless! It cannot be sold.{colors.Reset}\n")
                             shop.shop(2, shop_options, player)
 
                         d = gen_menu_yn(
-                            f'Are you sure you want to {colors.Red}sell{colors.Reset} {list[a][b - 1].name}?')
+                            f'Are you sure you want to {colors.Red}sell{colors.Reset} {item_list[a][b - 1].name}?')
+
                         if d:
 
                             if b != total_index + 1:
-                                player.money += list[a][b - 1].sell
-                                print(f"You sold {list[a][b - 1].name} for ${list[a][b - 1].sell}!")
+                                player.money += item_list[a][b - 1].sell
+                                print(f"You sold {item_list[a][b - 1].name} for ${item_list[a][b - 1].sell}!")
                                 print(f"You now have ${player.money}.")
-                                del list[a][b - 1]
-                                player.compress_inv()
+
+                                equipment.del_item(item_list[a][b-1])
                                 shop.shop(2, shop_options, player)
+
                             else:
                                 shop.shop(2, shop_options, player)
                         else:

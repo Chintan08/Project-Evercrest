@@ -9,14 +9,12 @@ class dialogue:
 
         if suffix is not None:
             print(f"{suffix}:")
-        else:
-            print("")
 
         while index != 0:
-            sleep(.02)
+            sleep(.03)
             print(string[len(string)-index], end="", flush=True)
             #stime+=.01
             index -= 1
         print("\n")
-        sleep(1)
+        sleep(1.1)
         #sleep(stime)

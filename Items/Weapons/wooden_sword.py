@@ -1,33 +1,37 @@
 from Utility.colors import colors
 from Items.Materials.golagtatite import golagtatite
 
-class wooden_sword:
+class wooden_sword(object):
 
     # every equipment piece has all the power to change any stat
-    dmg = 15.0
-    crc = .05
+    dmg = 7.0
+    crc = .025
     hp = 0.0
     speed = 0.0
     armor = 0.0
     armor_percent = 0.0
-    immune_to_burn = False
+    xp_bonus = 0.0
+    fire_resistance = 0.0
+    shock_resistance = 0.0
+    poison_amp = 0.0
 
     type = "weapon"
     wclass = "sword"
 
-    discovered = False
+    recipe = {}
 
-    recipe = {golagtatite: 1}
-
-    sell = 12.5
-    buy = 25.0
+    sell = 20.0
+    buy = 40.0
 
     lvl_req = 0
 
     name = f"{colors.White}Wooden Sword{colors.Reset}"
     desc = f"A simple wooden sword, made with no effort, and it shows. " \
-           f"\n{colors.Red}ATK{colors.Reset}: {colors.LightRed}{dmg}{colors.Reset} " \
-           f"\n{colors.Magenta}CRIT%{colors.Reset}: {colors.LightMagenta}{crc}{colors.Reset}"
+           f"\n{colors.Cyan}LVL REQUIRED: {colors.LightCyan}{lvl_req}{colors.Reset}" \
+           f"\n{colors.Cyan}Weapon Class: {colors.LightCyan}{wclass.upper()}{colors.Reset}" \
+           f"\n{colors.Red}Damage: {colors.LightRed}{dmg}{colors.Reset} " \
+           f"\n{colors.Magenta}CRIT%: {colors.LightMagenta}{crc}{colors.Reset}" \
+           f"\n{colors.LightGreen}Sell Price: ${sell}{colors.Reset}"
 
     def __init__(self):
         pass
@@ -40,3 +44,6 @@ class wooden_sword:
 
         return string
 
+    @staticmethod
+    def return_item():
+        return "wooden_sword"

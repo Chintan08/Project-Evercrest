@@ -28,7 +28,6 @@ class colors:
     bg_White = "\033[47m"
     bg_Reset = "\033[0m"
 
-
     # If you use this in an f-string, make sure to use single quotes for the inputs
     @staticmethod
     def wrap_color(string, color):

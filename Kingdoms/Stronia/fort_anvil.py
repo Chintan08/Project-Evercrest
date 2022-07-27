@@ -1,5 +1,5 @@
 from Utility.colors import colors
-from Enemies.Stronia.golagmite import golagmite
+from Enemies.Stronia.baby_golagmite import baby_golagmite
 from random import randint
 
 class fort_anvil:
@@ -10,12 +10,10 @@ class fort_anvil:
     type = "location"
 
     # fill this list in with more enemies, and range, which is the probability
-    enemies = {range(0,2): golagmite}
+    enemies = {range(0,2): baby_golagmite}
 
     # bosses are found in the last tier of an area
     boss = []
-
-    discovered = False
 
     # you need this tier to be able to visit
     min_tier = 0

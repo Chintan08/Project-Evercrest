@@ -1,16 +1,20 @@
-from colored import fore, style
+from Utility.colors import colors
 
-class grayed:
 
-    descriptor = fore.DARK_RED_1 + "Grayed " + style.RESET + \
-                 "\nGrayed are powerful humans, and are known to be the masters of fire. While each Grayed are different amongst themselves, they all burn the same within." \
-                 "\nTheir skin lets them be immune to " + fore.DARK_ORANGE_3B + "Burns" + style.RESET + ".\n"
+class grayed(object):
 
-    hp = 100.0
-    dmg = 12.0
+    name = f"{colors.Red}Grayed{colors.Reset}"
+    descriptor = f"{name}" \
+                 f"\nGrayed are powerful humans, and are known to be the masters of fire. While each Grayed are different amongst themselves, they all burn the same within." \
+                 f"\nTheir skin lets them be immune to {colors.LightRed}Burns{colors.Reset}.\n"
+
+    hp = 80.0
+    dmg = 7.0
     armor = 0.0
+    armor_percent = 0.0
     crc = 0.0
     speed = 0.0
+    xp_bonus = 1.0 # keep this at 1 because this makes sure you do not multiply by something less than 1
 
     hp_scale = 5.0
     dmg_scale = 1.5
@@ -18,6 +22,11 @@ class grayed:
     armor_percent_scale = 0.0
     crc_scale = 0.0
     spd_scale = 0.0
+    xp_scale = 0.0
 
     # if you are immune to Burns, you will not take any damage from periodic fire damage.
-    immune_to_burn = True
+    fire_resistance = 1.0
+    shock_resistance = 0.0
+
+    fire_resistance_scale = 0.0
+    shock_resistance_scale = 0.0

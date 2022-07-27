@@ -1,3 +1,4 @@
+from Races.galed import galed
 from Races.human import human
 from Races.grayed import grayed
 from Core.player import player
@@ -8,7 +9,7 @@ from Utility.colors import colors
 class char_create:
 
     # list of all races, used in char create to choose race
-    race_list = [human, grayed]
+    race_list = [human, grayed, galed]
 
     # main method that will handle creating character
     @staticmethod

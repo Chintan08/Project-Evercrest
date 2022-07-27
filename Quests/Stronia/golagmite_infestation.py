@@ -1,68 +1,71 @@
+from time import sleep
+
 from Utility.colors import colors
-from Enemies.Stronia.golagmite import golagmite
+from Enemies.Stronia.baby_golagmite import baby_golagmite
+from Utility.dialogue import dialogue
+from Utility.list_check import list_check
 
 
-class golagmite_infestation:
-    discovered = False
+class golagmite_infestation(object):
 
     name = "Golagmite Infestation"
     desc = "Bjorne has heard that there have been heavy Golagmite Infestations. Clean out 2 of them."
-    undiscovered_desc = "The Stronia People have been getting mad at the Golagmites running rampant. Help them out."
 
     starting = 0
-    completed = False
 
     type = "quest"
 
     lvl_req = 0
     location = "Stronia"
 
-    started = False
+    def __init__(self):
+        pass
 
     @staticmethod
-    def start(player):
+    def can_do_quest(player):
 
-        if not golagmite_infestation.started:
+        if player.level >= golagmite_infestation.lvl_req and golagmite_infestation not in player.completed_quests and golagmite_infestation.name not in list_check.names(player.current_quests):
+            return 1
 
-            golagmite_infestation.started = True
+        return 0
 
-            if golagmite.name not in player.enemies_killed:
-                golagmite_infestation.starting = 0
+    def start(self, player, questgiver):
 
-            else:
-                golagmite_infestation.starting = player.enemies_killed[golagmite.name]
+        dialogue.dia(questgiver.name, "The People of Stronia have been getting mad at the Baby Golagmites running rampant. Help them out.")
 
+        if baby_golagmite.name not in player.enemies_killed:
+            self.starting = 0
+
+        else:
+            self.starting = player.lexicon.compress_kills()[baby_golagmite.name]
+
+    def check(self, player):
+
+        if baby_golagmite.name not in player.enemies_killed:
+            print(f"\n{colors.Red}You haven't killed a single Baby Golagmite!{colors.Reset}\n")
+            sleep(2)
+            player.returning(0)
+
+        elif player.lexicon.compress_kills()[baby_golagmite.name] - self.starting >= 3:
+            self.give_reward(player)
             player.returning(0)
 
         else:
-            golagmite_infestation.check(player)
-
-    @staticmethod
-    def check(player):
-
-        if golagmite.name not in player.enemies_killed:
-            print(f"\n{colors.Red}You haven't killed a single Golagmite!{colors.Reset}\n")
-            player.returning(0)
-
-        elif player.enemies_killed[golagmite.name] - golagmite_infestation.starting == 2:
-            golagmite_infestation.give_reward(player)
-            player.returning(0)
-
-        else:
-            print(f"\n{colors.LightRed}You haven't killed enough Golagmites...{colors.Reset}\n")
+            print(f"\n{colors.LightRed}You haven't killed enough Baby Golagmites...{colors.Reset}\n")
+            sleep(2)
             player.returning(0)
 
     # gives the quest reward
     # need to use this method because we do not want to differentiate between reward types.
-    @staticmethod
-    def give_reward(player):
+    def give_reward(self, player):
 
         print(f"\nYou've been given {colors.Green}$50{colors.Reset} dollars for your hard work.\n")
+        sleep(1)
         player.money += 50
 
-        golagmite_infestation.completed = True
+        player.completed_quests.append(golagmite_infestation)
 
         for index in range(0, len(player.current_quests)):
-            if player.current_quests[index] == golagmite_infestation:
+            if player.current_quests[index] == self:
                 del player.current_quests[index]
                 break

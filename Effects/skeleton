@@ -7,11 +7,14 @@ class :
     ...
     duration =
 
+    caster = None
+    casted = None
+
     # how many times can this effect stack
     stack = 1
 
     # this typing makes it so effects of the same type do NOT stack
-    type = "burn"
+    type = ""
 
     # last few variables should be the same amount of variables above
     def __init__(self, combat, caster, casted, ):

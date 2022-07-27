@@ -1,8 +1,7 @@
 from Utility.colors import colors
 
 
-class no_helmet:
-
+class no_helmet(object):
     # every equipment piece has all the power to change any stat
     dmg = 0.0
     crc = 0.0
@@ -10,11 +9,12 @@ class no_helmet:
     speed = 0.0
     armor = 0.0
     armor_percent = 0.0
-    immune_to_burn = False
+    xp_bonus = 0.0
+    fire_resistance = 0.0
+    shock_resistance = 0.0
+    poison_amp = 0.0
 
     type = "helmet"
-
-    discovered = False
 
     recipe = {}
     sell = 12.5
@@ -23,9 +23,7 @@ class no_helmet:
     lvl_req = 0
 
     name = f"{colors.White}No Helmet{colors.Reset}"
-    desc = f"You seemingly have no helmet on." \
-           f"\n{colors.Red}ARMOR{colors.Reset}: {colors.LightRed}{armor}{colors.Reset} " \
-           f"\n{colors.Magenta}ARMOR%{colors.Reset}: {colors.LightMagenta}{armor_percent}{colors.Reset}"
+    desc = f"You seemingly have no helmet on."
 
     def __init__(self):
         pass

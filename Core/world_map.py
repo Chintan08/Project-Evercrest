@@ -1,5 +1,6 @@
 from Core.menus import *
 from Kingdoms.Stronia.stronia import stronia
+from Saves.save_and_load import save_and_load
 
 
 class world_map:
@@ -20,7 +21,7 @@ class world_map:
                                                            f"{colors.LightYellow}Rendagger{colors.Reset}",
                                                            f"{colors.LightYellow}Shellamond{colors.Reset}",
                                                            f"{colors.LightYellow}Krion{colors.Reset}",
-                                                           f"{colors.Red}Quit Game{colors.Red}"],
+                                                           f"{colors.Red}Save & Quit Game{colors.Red}"],
                            "Pick an option to learn more, and to go there: ", .075)
 
         # a list of all kingdoms
@@ -29,6 +30,7 @@ class world_map:
 
         # if answer is quit game, quits game
         if ans == 11:
+            save_and_load.save(player)
             quit()
 
         # if you didn't quit the game, takes the number from the previous generated menu and calls on the kingdom you
@@ -37,7 +39,7 @@ class world_map:
 
         # Asks if you'd like to go to the chosen kingdom. If you do, you get taken to their menu prompt.
         # TODO: Add Quest Reminders in each Kingdom once Quests are implemented
-        a = gen_menu_yn(f"{selected_kingdom.desc} \n{colors.LightCyan}Would you like to go there?{colors.Reset}")
+        a = gen_menu_yn(f"{selected_kingdom.world_desc} \n{colors.LightCyan}Would you like to go there?{colors.Reset}")
         if a:
             selected_kingdom.menu_prompt()
         else:

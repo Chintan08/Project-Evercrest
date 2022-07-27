@@ -2,6 +2,8 @@ from Utility.colors import colors
 from time import sleep
 
 class healthbar:
+
+    @staticmethod
     def hp_bar(length, var, max_var):
         bar = ""
         ratio = float(var / max_var)
@@ -20,7 +22,7 @@ class healthbar:
         bar += colors.Reset
         return bar
 
-
+    @staticmethod
     def animated_hp_bar(length, var, max_var):
         ratio = float(var / max_var)
         chars_printed = 1

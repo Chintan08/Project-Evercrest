@@ -1,6 +1,5 @@
 from random import randint
-from Core.Colors import Colors
-
+from Utility.colors import colors
 
 class :
     type = "enemy"
@@ -11,31 +10,44 @@ class :
     armor_percent = 0.0  # this will never be random
     dmg = 0
     speed = 0
-    crc = 0.0
+    crc = 0.0 # this will never be random
+    fire_resistance = 0.0 # this will never be random
+    shock_resistance = 0.0 # this will never be random
+    poison_amp = 0.0 # this will never be random
+
+    scombat_level = {"dueling": 0,
+                    "eldric": 0,
+                    "nimbilic": 0,
+                    "resolute": 0,
+                    "elitist": 0,
+                    "standard": 0,
+                    "brawler": 0}
 
     hp_range = ()
     armor_range = ()
     dmg_range = ()
     speed_range = ()
-    crc_range = ()
-
-    can_be_burned =
+    xp_drop_range = ()
 
     abilities = []
 
-    discovered = False
-
+    # range is min, max-1
     loot_table = {range(): }
+
+    # what weapon class is this enemy
+    wclass = ""
 
     name = ""
     undiscovered_desc = ""
-    desc = "\n" \
-           f"{Colors.Green}HP Range{Colors.Reset}: {Colors.LightGreen}{hp_range[0]} - {hp_range[1]} {Colors.Green}HP\n" \
-           f"{Colors.Yellow}Armor Range: {Colors.LightYellow}{armor_range[0]} - {armor_range[1]} {Colors.Yellow}Armor\n" \
-           f"{Colors.Red}Damage Range: {Colors.LightRed}{dmg_range[0]} - {dmg_range[1]} {Colors.Red}DMG\n" \
-           f"{Colors.Magenta}CRC Range: {Colors.LightMagenta}{crc_range[0]} - {crc_range[1]} {Colors.Magenta}CRC\n" \
-           f"{Colors.Blue}SPD Range: {Colors.LightBlue}{speed_range[0]} - {speed_range[1]} {Colors.Blue}SPD{Colors.Reset}\n" \
-           f"{Colors.White}Abilities: {abilities[].name}\n"
+    desc = "DESCRIPTION GOES HERE\n" \
+           f"{colors.Green}HP Range: {colors.LightGreen}{hp_range[0]} - {hp_range[1]} {colors.Green}HP\n" \
+           f"{colors.Yellow}Armor Range: {colors.LightYellow}{armor_range[0]} - {armor_range[1]} {colors.Yellow}Armor\n" \
+           f"{colors.Red}Damage Range: {colors.LightRed}{dmg_range[0]} - {dmg_range[1]} {colors.Red}DMG\n" \
+           f"{colors.Magenta}CRC: {colors.LightMagenta}{crc} {colors.Magenta}CRC\n" \
+           f"{colors.Blue}SPD Range: {colors.LightBlue}{speed_range[0]} - {speed_range[1]} {colors.Blue}SPD{colors.Reset}\n" \
+           f"{colors.Cyan}XP Range: {colors.LightCyan}{xp_drop_range[0]} - {xp_drop_range[1]} {colors.Cyan}XP{colors.Reset}" \
+           f"{colors.White}Abilities: {abilities[0].name}\n" \
+           f"{colors.Yellow}Drops: {.name}\n"
 
     def __init__(self, maxhp, armor, dmg, crc, speed):
         self.maxhp = maxhp
@@ -46,6 +58,7 @@ class :
         self.speed = speed
 
     # a method that chooses your next ability, using the context given through combat
+    # specifically use combat.enemy_list, NOT the internal ability list
     @staticmethod
     def choose(combat):
 
@@ -53,7 +66,7 @@ class :
     # drops items
     @staticmethod
     def drop():
-        item = randint(0, 3) # picks a random number to see if it falls in the range if one of the items in loot_table
+        item = randint(0, 99) # picks a random number to see if it falls in the range if one of the items in loot_table
         for dict_key in .loot_table:
             if item in dict_key:
                 return .loot_table[dict_key]
@@ -61,4 +74,4 @@ class :
     # drops money
     @staticmethod
     def money():
-        return randint(30, 60)
+        return randint(, )

@@ -1,7 +1,7 @@
 from Utility.colors import colors
 
 
-class shirt:
+class shirt(object):
 
     # every equipment piece has all the power to change any stat
     dmg = 0.0
@@ -10,11 +10,12 @@ class shirt:
     speed = 0.0
     armor = 0.0
     armor_percent = 0.0
-    immune_to_burn = False
+    xp_bonus = 0.0
+    fire_resistance = 0.0
+    shock_resistance = 0.0
+    poison_amp = 0.0
 
     type = "chestplate"
-
-    discovered = False
 
     recipe = {}
     sell = 12.5

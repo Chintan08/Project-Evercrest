@@ -2,16 +2,20 @@ from Utility.colors import colors
 
 
 # does flat damage, increases base damage with duelist and percentage maxhp with eldric
+from Utility.damage import damage
+from Utility.dialogue import dialogue
+
+
 class standard:
 
     type = "style"
     style = "standard"
     name = f"{colors.White}Standard{colors.Reset}"
     desc = f"A Standard Combo will deal flat damage to your opponent.\n" \
-           f"{colors.Magenta}Enhancers{colors.Reset}:\n" \
+           f"\n{colors.Magenta}Enhancers{colors.Reset}:\n" \
            f"Eldric: Increases MaxHP damage.\n" \
-           f"Duelist: Increases flat damage.\n"
-    discovered = False
+           f"Duelist: Increases flat damage.\n" \
+           f"{colors.Yellow}Level Bonus: Deal an extra base 5 damage per Standard level{colors.LightYellow}\n"
 
     @staticmethod
     def action(combat, caster, casted):
@@ -29,19 +33,21 @@ class standard:
 
         # at base level, deal 30% of your damage
         base_dmg = 15 + (.3 * caster.dmg)
-        # for every brawler stack deal extra 10
-        duelist_count = d_count * 10
+
+        # for every duelist stack deal extra 20
+        duelist_count = d_count * 20
+
         # for every eldric count, deal 5% of the enemy's maxhp
         eldric_percent = (.05*e_count) * casted.maxhp
 
-        dmg = int(((base_dmg + duelist_count + eldric_percent) * (1-casted.armor_percent)) - casted.armor)
+        # standard level bonus
+        bonus_damage = 0
+        for index in range(0, caster.combat_level["standard"]):
+            bonus_damage += 5
 
-        print(f"{colors.LightMagenta}{caster.name} has performed a {standard.name} {colors.LightMagenta}Combo!{colors.Reset}")
+        dmg = int(base_dmg + duelist_count + eldric_percent + bonus_damage)
 
-        if dmg > 0:
-            casted.hp -= dmg
-            print(f"{caster.name} dealt {colors.LightYellow}{dmg}{colors.Reset} damage to {casted.name}!")
-        else:
-            print(f"{caster.name} could not break through {casted.name}'s armor!")
+        dialogue.dia(None, f"\n{colors.LightMagenta}{caster.name} has performed a {standard.name} {colors.LightMagenta}Combo!{colors.Reset}")
 
-        # 100 - (15 - ((.3 * 20) + (1 * 10) + (((.05 * 1) * 100)))) = 51
+        damage.deal(combat, caster, casted, dmg, False, 0, 0, standard)
+

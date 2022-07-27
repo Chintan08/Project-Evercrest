@@ -1,5 +1,7 @@
 from random import randint
 from Utility.colors import colors
+from Utility.damage import damage
+from Utility.dialogue import dialogue
 from Utility.healthbar import healthbar
 from Core.menus import gen_menu_num
 from Items.Abilities.blank import blank
@@ -8,6 +10,7 @@ from time import sleep
 
 
 class combat:
+
     pdmg = 0
     pdef = 0
     pcrc = 0
@@ -68,13 +71,12 @@ class combat:
 
         # if the enemy has not been discovered, we run through a lexicon update
         # if not, print a basic prompt
-        names = [enemy.name for enemy in player.lexicon.enemies]
+        names = [enemy.name for enemy in player.lexicon.lexicon_dict["enemy"]]
         if enemy.name not in names:
-            print(f"{colors.LightCyan}{enemy.undiscovered_desc}{colors.Reset}")
             player.lexicon.update_discovery(enemy)
 
         else:
-            print(f"\n{colors.LightCyan}You come across a{colors.Reset}{colors.LightRed} {enemy.name}{colors.Reset}.\n")
+            dialogue.dia(None, f"\n{colors.LightCyan}You come across a{colors.Reset}{colors.LightRed} {enemy.name}{colors.Reset}.\n")
 
         # here we look at speeds and compare them
         # self explanatory
@@ -96,19 +98,26 @@ class combat:
 
         while True:
 
+            # in case swings need to be incremented, this is put here so we can add to 3 instead of it getting replaced like before
+            combat.swing = 3
+
             for ability in combat.player_list:
                 ability.cur_cd -= 1
 
             for ability in combat.enemy_list:
                 ability.cur_cd -= 1
 
-            for effect in combat.effects["player"]:
-                effect.constant(combat, enemy, player)
+            for index in range(0, len(combat.effects["player"]))[::-1]:
+                combat.effects["player"][index].constant(combat)
 
-            for effect in combat.effects["enemy"]:
-                effect.constant(combat, player, enemy)
+            for index in range(0, len(combat.effects["enemy"]))[::-1]:
+                combat.effects["enemy"][index].constant(combat)
 
             for mob in combat.mobs:
+
+                # reset before the round because abilities may want to interact with this through effects (see prediction)
+                combat.styles = []
+                combat.swings = []
 
                 combat.print_healthbars(player, enemy)
 
@@ -120,31 +129,23 @@ class combat:
 
                 if mob == player:
 
-                    combat.swing = 3
-
-                    while combat.swing != 0:
+                    while combat.swing > 0:
+                        sleep(0.2)
                         ans = gen_menu_num(
-                            f"\n{colors.Blue}What do you want to do, {colors.LightGreen}{player.name}{colors.Blue}?\n{colors.Magenta}You have {colors.Yellow}{combat.swing}{colors.Magenta} swings remaining.{colors.Reset}",
-                            [ability.name for ability in combat.player_list] + [f"Pass this round", f"Run"],
+                            f"{colors.Blue}What do you want to do, {colors.LightGreen}{player.name}{colors.Blue}?\n{colors.Magenta}You have {colors.Yellow}{combat.swing}{colors.Magenta} swings remaining.{colors.Reset}",
+                            [ability.name for ability in combat.player_list] + [f"Pass this round"],
                             "What are you going to do?", 0)
 
                         if ans == len(combat.player_list) + 1:
                             print(f"\n{colors.Green}You've passed this turn.{colors.Reset}\n")
                             break
 
-                        elif ans == len(combat.player_list) + 2:
-                            print(f"\n{colors.Red}You ran away.{colors.Reset}\n")
-
-                            combat.save_instance(player, enemy, True)
-
-                            player.returning(0)
-
                         else:
                             ability = combat.player_list[ans - 1]
 
                             print(f"{player.name} has cast {ability.name}!\n")
 
-                            combat.swings.append(ability.name)
+                            combat.swings.append(ability)
                             combat.styles.append(ability.style)
 
                             ability.action(combat, player, enemy)
@@ -152,10 +153,10 @@ class combat:
 
                         combat.swing -= 1
 
-                    # TODO:
-                    # Abilities that need the full swing set to proc their special need to be able to check after the loop is over. Make sure no abilities have issues with proccings specials.
-                    for ability in combat.player_list:
-                        ability.special(combat, player, enemy)
+                    # TODO: Abilities that need the full swing set to proc their special need to be able to check after the loop is over. Make sure no abilities have issues with proccings specials.
+                    if len(combat.swings) != 0:
+                        for ability in combat.player_list:
+                            ability.special(combat, player, enemy)
 
                     combat.gen_combo(player, enemy)
 
@@ -163,8 +164,8 @@ class combat:
 
                     combat.swing = 3
 
-                    while combat.swing != 0:
-                        print(f"\n{colors.Yellow}{enemy.name} is thinking...{colors.Reset}\n"
+                    while combat.swing > 0:
+                        print(f"\n\n{colors.Yellow}{enemy.name} is thinking...{colors.Reset}\n"
                               f"{colors.Magenta}They have {colors.Yellow}{combat.swing}{colors.Magenta} swings remaining.{colors.Reset}\n\n")
 
                         sleep(2)
@@ -173,7 +174,7 @@ class combat:
 
                         print(f"{colors.LightRed}{enemy.name}{colors.Reset} cast {ability.name}!\n")
 
-                        combat.swings.append(ability.name)
+                        combat.swings.append(ability)
                         combat.styles.append(ability.style)
 
                         ability.action(combat, enemy, player)
@@ -181,16 +182,15 @@ class combat:
 
                         combat.swing -= 1
 
-                    # TODO:
-                    # Abilities that need the full swing set to proc their special need to be able to check after the loop is over. Make sure no abilities have issues with proccings specials.
-                    for ability in combat.enemy_list:
-                        ability.special(combat, enemy, player)
+                    # TODO: Abilities that need the full swing set to proc their special need to be able to check after the loop is over. Make sure no abilities have issues with proccings specials.
+                    if len(combat.swings) != 0:
+                        for ability in combat.enemy_list:
+                            ability.special(combat, enemy, player)
+
                     combat.gen_combo(enemy, player)
 
                 # reset after every iteration
-                combat.swings = 3
-                combat.styles = []
-                combat.swings = []
+                combat.swing = 3
 
     # This returns a winner and a loser
     # This method also handles enemy drops and money losses
@@ -201,26 +201,20 @@ class combat:
         # this heals player if you lost
         combat.save_instance(player, enemy, True)
 
-        for ability in combat.player_list:
-            del ability
-
-        for ability in combat.enemy_list:
-            del ability
-
         if victory:
-            print(f"\n{colors.Yellow}You killed {colors.Red}{enemy.name}{colors.Reset}!")
+            dialogue.dia(None, f"\n{colors.Yellow}You defeated {colors.Red}{enemy.name}{colors.Reset}!")
             sleep(.6)
             print(f"\n{colors.Yellow}Let's see what {enemy.name} drops!{colors.Reset}")
+            sleep(1)
 
             # dictates how many drops you get
             num = 1
             items = 0
-            for index in range(0, 5):
+            for index in range(0, 5): # up to 5 items can be dropped
                 chose = randint(1, num)
-
                 if chose == num:
                     items += 1
-                    num *= 2
+                    num *= 3
                 else:
                     break
 
@@ -228,25 +222,43 @@ class combat:
             for index in range(0, items):
                 item = enemy.drop()
 
-                print(f"\n{colors.Red}{enemy.name}{colors.Reset} dropped {item.name}!\n")
+                if item is None:
+                    print(f"\n{colors.Red}{enemy.name} dropped nothing! No more items will be dropped.{colors.Reset}\n")
+                    break
 
-                equipment.add_to_inv(item)
+                else:
+                    print(f"\n{colors.Red}{enemy.name}{colors.Reset} dropped {item.name}!\n")
 
-                print(f"{colors.Yellow}...{colors.Reset}")
-                sleep(3)
+                    equipment.add_to_inv(item)
+
+                    print(f"{colors.Yellow}...{colors.Reset}")
+                    sleep(3)
 
             # drops money
             amount = enemy.money()
             print(
-                f"\n{colors.Red}{enemy.name}{colors.Reset} dropped {colors.LightGreen}${amount}{colors.Reset}! You now have {colors.Green}${player.money + amount}{colors.Reset}.")
+                f"\n{colors.Red}{enemy.name}{colors.Reset} dropped {colors.LightGreen}${amount}{colors.Reset}! You now have {colors.Green}${player.money + amount}{colors.Reset}.\n")
             player.money += amount
 
-            # updates killlist
-            if enemy.name not in player.enemies_killed:
-                player.enemies_killed[enemy.name] = 1
+            # drops XP
+            xp = randint(enemy.xp_drop_range[0], enemy.xp_drop_range[1])
+            total_damage = 0
 
-            else:
-                player.enemies_killed[enemy.name] += 1
+            dialogue.dia(None, f"{enemy.name} has dropped {colors.LightCyan}{xp}{colors.Reset} XP!")
+            damage_values = damage.get_values()
+
+            for style in damage.get_values():
+                if damage_values[style] > 0:
+                    total_damage += damage.get_values()[style]
+
+            for style in damage.get_values():
+                if damage_values[style] > 0:
+                    player.give_combat_xp(style, int((damage.get_values()[style]/total_damage) * xp * player.xp_bonus))
+
+            damage.clear_values()
+
+            # updates kill list
+            player.enemies_killed.append(enemy.name)
 
             return True  # whoever called on this class knows that you won
 
@@ -298,7 +310,6 @@ class combat:
 
             # if you lost, your hp is healed, but if not dead, no heal
             if player.hp <= 0:
-                print("hello")
                 player.hp = player.maxhp
 
     # Generate a combo by looking at:
@@ -315,7 +326,9 @@ class combat:
 
             for style in combat.delay_list["player"]:
 
-                combat.delay_list["player"][style] -= 1
+                # only remove the duration if you haven't done it already
+                if combat.styles[0] not in combat.delay_list[caster.type]:
+                    combat.delay_list["player"][style] -= 1
 
                 if combat.delay_list["player"][style] <= 0:
 
@@ -330,7 +343,9 @@ class combat:
 
             for style in combat.delay_list["enemy"]:
 
-                combat.delay_list["enemy"][style] -= 1
+                # only remove the duration if you haven't done it already
+                if combat.styles[0] not in combat.delay_list[caster.type]:
+                    combat.delay_list["enemy"][style] -= 1
 
                 if combat.delay_list["enemy"][style] <= 0:
 
@@ -343,11 +358,11 @@ class combat:
 
         if len(combat.styles) > 0:
             if combat.styles[0] not in combat.delay_list[caster.type]:
-                if not combat.styles[0].discovered and caster.type == "player":
-                    caster.lexicon.update_discovery(combat.styles[0])
-
+                sleep(.5)
                 combat.styles[0].action(combat, caster, casted)
                 combat.delay_list[caster.type][combat.styles[0]] = 2
+                if caster.type == "player":
+                    caster.lexicon.update_discovery(combat.styles[0])
 
         #print(combat.delay_list)
 
@@ -377,3 +392,12 @@ class combat:
         healthbar.animated_hp_bar(24, enemy.hp, enemy.maxhp)
         sleep(.2)
         print(f"({enemy.hp} / {enemy.maxhp})")
+
+    @staticmethod
+    def get_effect_list(cast):
+
+        effects = []
+        for effect in combat.effects[cast.type]:
+            effects.append(effect.type)
+
+        return effects

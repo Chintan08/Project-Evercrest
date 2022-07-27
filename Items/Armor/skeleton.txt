@@ -1,0 +1,56 @@
+from Utility.colors import colors
+
+
+class :
+
+    # every equipment piece has all the power to change any stat
+    # think of items as stat sticks, change the stats here
+    dmg = 0
+    crc = 0.0
+    hp = 0.0
+    speed = 0.0
+    armor = 0.0
+
+    # keep as decimals
+    armor_percent = 0.0
+    xp_bonus = 0.0
+    fire_resistance = 0.0
+    shock_resistance = 0.0
+    poison_amp = 0.0
+
+    # is this a helmet, chestplate, leggings, or boots
+    type = ""
+
+    # if this item is craftable, what do you need to craft it? craftable items must be added to crafting.py
+    # recipe is a dictionary, use this format:
+    # MATERIAL: AMOUNT
+    recipe = {}
+
+    # SET TO NONE IF YOU DO NOT WANT IT TO BE SELLABLE
+    sell = 0
+
+    # set buying price, must add item to respective kingdom's shop market
+    buy = 0
+
+    # what level do you need to be to equip this item?
+    lvl_req = 0
+
+    name = f"{colors.}{colors.Reset}"
+
+    # ADD ALL VARIABLES CHANGED TO DESCRIPTION
+    desc = f"DESCRIPTION GOES HERE" \
+           f"\n" \
+           f"\n{colors.Cyan}LVL REQUIRED: {colors.LightCyan}{lvl_req}{colors.Reset}" \
+
+    def __init__(self):
+        pass
+
+    # used if item is craftable, do not delete
+    @staticmethod
+    def print_recipe():
+        string = ""
+        for key in CLASS NAME.recipe:
+            string = f"{string}| {CLASS NAME.recipe[key]}x {key.name} | "
+
+        return string
+

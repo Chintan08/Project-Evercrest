@@ -1,10 +1,9 @@
 from time import sleep
-from colored import fore, style
 from Utility.colors import colors
 
 def gen_menu_enum(greet, options, inp, sleep_time):
 
-    print(f"\n{colors.LightCyan}{greet}{colors.Reset}\n\n")
+    print(f"\n{greet}\n\n")
 
     print("\n".join([f"{index + 1}. {item}" for index, item in enumerate(options)]))
 
@@ -18,7 +17,7 @@ def gen_menu_enum(greet, options, inp, sleep_time):
             return ans
 
         except ValueError:
-            print(f"\n{fore.RED}That's not an option.{style.RESET}\n")
+            print(f"\n{colors.Red}That's not an option.{colors.Red}\n")
 
 
 # creates a menu when called upon
@@ -26,7 +25,7 @@ def gen_menu_num(greet, options, inp, sleep_time):
 
     option = 0
     while True:
-        print(f"\n{colors.LightCyan}{greet}{colors.Reset}\n\n")
+        print(f"\n{greet}\n\n")
 
         for index in range(0, len(options)):
             sleep(sleep_time)
@@ -46,7 +45,7 @@ def gen_menu_num(greet, options, inp, sleep_time):
             return ans
 
         except ValueError:
-            print(f"\n{fore.RED}That's not an option.{style.RESET}\n")
+            print(f"\n{colors.Red}That's not an option.{colors.Reset}\n")
 
 
 # returns a 1 if yes, returns 0 if no
@@ -61,4 +60,4 @@ def gen_menu_yn(inp):
             return 0
 
         else:
-            print(f"{fore.RED}\nThat's not an option.{style.RESET}")
+            print(f"{colors.Red}\nThat's not an option.{colors.Reset}")
