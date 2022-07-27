@@ -2,6 +2,7 @@ from Enemies.Stronia.mountain_vulture_bandit_rookie import mountain_vulture_band
 from Items.Weapons.bandit_scimitar import bandit_scimitar
 from Kingdoms.Stronia.southern_mountain_vulture_camp import southern_mountain_vulture_camp
 from Quests.Stronia.The_Admirer.luxurious_rockington_inn import luxurious_rockington_inn
+from Saves.save_and_load import save_and_load
 from Styles.standard import standard
 from Utility.colors import colors
 from Utility.combat import combat
@@ -124,3 +125,6 @@ class chasing_your_admirer(object):
             if player.current_quests[index] == self:
                 del player.current_quests[index]
                 break
+
+        save_and_load.save(player)
+        dialogue.dia(None, f"{colors.LightGreen}Your game has been saved.{colors.Reset}")

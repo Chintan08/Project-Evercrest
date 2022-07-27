@@ -16,8 +16,8 @@ class grayed(object):
     speed = 0.0
     xp_bonus = 1.0 # keep this at 1 because this makes sure you do not multiply by something less than 1
 
-    hp_scale = 5.0
-    dmg_scale = 1.5
+    hp_scale = 3.0
+    dmg_scale = 2.0
     armor_scale = 0.0
     armor_percent_scale = 0.0
     crc_scale = 0.0

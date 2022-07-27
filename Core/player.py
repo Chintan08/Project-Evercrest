@@ -191,6 +191,9 @@ class player(object):
         if self.last_equipped != self.equipped:
             self.hp = self.maxhp  # heal up to max
 
+        if level > self.level:
+            self.hp = self.maxhp
+
         # this variable is used to compare if equipment changed or not
         self.last_equipped = self.equipped
 

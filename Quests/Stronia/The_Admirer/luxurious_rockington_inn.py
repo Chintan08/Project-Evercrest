@@ -2,6 +2,7 @@
 from Enemies.Stronia.rockington_bandit import rockington_bandit
 from Items.Abilities.Brawling.dev_strike import dev_strike
 from Kingdoms.Stronia.rockington_inn import rockington_inn
+from Saves.save_and_load import save_and_load
 from Utility.colors import colors
 from Utility.combat import combat
 from Utility.dialogue import dialogue
@@ -90,3 +91,6 @@ class luxurious_rockington_inn(object):
             if player.current_quests[index] == self:
                 del player.current_quests[index]
                 break
+
+        save_and_load.save(player)
+        dialogue.dia(None, f"{colors.LightGreen}Your game has been saved.{colors.Reset}")

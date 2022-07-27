@@ -1,6 +1,5 @@
 from Characters.Questgivers.bjorne import bjorne
 from Core.menus import *
-from Enemies.Stronia.Bosses.gray_bull import gray_bull
 from Items.Accessories.dry_ward import dry_ward
 from Items.Armor.Boots.rustic_boots import rustic_boots
 from Items.Armor.Chestplates.rustic_chestplate import rustic_chestplate
@@ -11,6 +10,7 @@ from Kingdoms.Stronia.fort_anvil import fort_anvil
 from Kingdoms.Stronia.heart_of_stronia import heart_of_stronia
 from Kingdoms.Stronia.the_canyon import the_canyon
 from Kingdoms.Stronia.the_deep_prisons import the_deep_prisons
+from Saves.save_and_load import save_and_load
 from Utility.equipment import equipment
 from Utility.combat import combat
 from Utility.shop import shop
@@ -18,7 +18,6 @@ from Utility.crafting import craft
 from Utility.dialogue import dialogue
 from Items.Weapons.wooden_sword import wooden_sword
 from Characters.Masters.kaero import kaero
-from Enemies.Stronia.baby_golagmite import baby_golagmite
 
 from Kingdoms.Stronia.barren_land import barren_land
 
@@ -75,7 +74,8 @@ class stronia:
                 f"Manage your {colors.Cyan}equipment and inventory{colors.Reset}",
                 f"Visit the {colors.Green}Market{colors.Reset}",
                 f"{colors.Yellow}Craft{colors.Reset} something",
-                f"Leave {colors.Yellow}Stronia{colors.Reset}"]
+                f"Leave {colors.Yellow}Stronia{colors.Reset}",
+                f"{colors.LightGreen}Save{colors.Reset} your game"]
 
         if len(quests) > 0:
             list += [quest.name for quest in quests]
@@ -109,8 +109,13 @@ class stronia:
         if ans == 8:
             self.player.return_to_world(0)
 
-        if ans in range(9, len(list) + 1):
-            quests[ans - 9].check(self.player)
+        if ans == 9:
+            save_and_load.save(self.player)
+            dialogue.dia(None, f"{colors.LightGreen}Saving your game... and done!{colors.Reset}")
+            self.player.returning(0)
+
+        if ans in range(10, len(list) + 1):
+            quests[ans - 10].check(self.player)
 
     def town_quest(self):
 

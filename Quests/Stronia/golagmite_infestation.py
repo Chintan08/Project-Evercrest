@@ -1,5 +1,6 @@
 from time import sleep
 
+from Saves.save_and_load import save_and_load
 from Utility.colors import colors
 from Enemies.Stronia.baby_golagmite import baby_golagmite
 from Utility.dialogue import dialogue
@@ -69,3 +70,6 @@ class golagmite_infestation(object):
             if player.current_quests[index] == self:
                 del player.current_quests[index]
                 break
+
+        save_and_load.save(player)
+        dialogue.dia(None, f"{colors.LightGreen}Your game has been saved.{colors.Reset}")

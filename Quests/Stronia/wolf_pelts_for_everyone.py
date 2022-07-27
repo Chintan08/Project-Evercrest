@@ -2,6 +2,7 @@ from time import sleep
 
 from Items.Materials.wolf_pelt import wolf_pelt
 from Items.Weapons.rusty_iron_sword import rusty_iron_sword
+from Saves.save_and_load import save_and_load
 from Utility.colors import colors
 from Utility.dialogue import dialogue
 from Utility.equipment import equipment
@@ -76,3 +77,6 @@ class wolf_pelts_for_everyone(object):
             if player.current_quests[index] == self:
                 del player.current_quests[index]
                 break
+
+        save_and_load.save(player)
+        dialogue.dia(None, f"{colors.LightGreen}Your game has been saved.{colors.Reset}")

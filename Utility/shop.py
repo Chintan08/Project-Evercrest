@@ -24,7 +24,7 @@ class shop:
                               f"{colors.LightGreen}Accessories{colors.Reset}", f"{colors.White}Materials{colors.Reset}",
                               f"{colors.Cyan}Back{colors.Reset}"],
                              "Pick an option: ", 0)
-
+            total_index = 0
             while True:
                 if a != 8:
                     total_index = 0
@@ -118,7 +118,7 @@ class shop:
                     print(f"{total_index + 1}. Back\n")
 
                     try:
-                        b = int(input(f"What would you like to {colors.Red}sell{colors.Reset}? (Input number)"))
+                        b = int(input(f"What would you like to {colors.Red}sell{colors.Reset}? (Input number)\n"))
 
                         if b not in range(1, len(item_list[a]) + 2):
                             raise ValueError
@@ -137,8 +137,8 @@ class shop:
 
                             if b != total_index + 1:
                                 player.money += item_list[a][b - 1].sell
-                                print(f"You sold {item_list[a][b - 1].name} for ${item_list[a][b - 1].sell}!")
-                                print(f"You now have ${player.money}.")
+                                print(f"You sold {item_list[a][b - 1].name} for {colors.LightGreen}${item_list[a][b - 1].sell}{colors.Reset}!")
+                                print(f"You now have {colors.LightGreen}${player.money}{colors.Reset}.")
 
                                 equipment.del_item(item_list[a][b-1])
                                 shop.shop(2, shop_options, player)
