@@ -20,7 +20,7 @@ class wolf_pants:
     shock_resistance = 0.01
     poison_amp = 0.0
 
-    type = "helmet"
+    type = "leggings"
 
     # if this item is craftable, what do you need to craft it? craftable items must be added to crafting.py
     # recipe is a dictionary, use this format:

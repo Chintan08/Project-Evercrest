@@ -8,11 +8,25 @@ class shop:
 
     @staticmethod
     def shop(ans, shop_options, player):
+
+        print(
+            f"{colors.LightGreen}\n\n\n\n"
+            f" _____ _              ___  ___           _        _         _                \n"
+            f"|_   _| |             |  \/  |          | |      | |       | |               \n"
+            f"  | | | |__   ___     | .  . | __ _ _ __| | _____| |_ _ __ | | __ _  ___ ___ \n"
+            f"  | | | '_ \ / _ \    | |\/| |/ _` | '__| |/ / _ \ __| '_ \| |/ _` |/ __/ _ \ \n"
+            f"  | | | | | |  __/    | |  | | (_| | |  |   <  __/ |_| |_) | | (_| | (_|  __/\n"
+            f"  \_/ |_| |_|\___|    \_|  |_/\__,_|_|  |_|\_\___|\__| .__/|_|\__,_|\___\___|\n"
+            f"                                                     | |                     \n"
+            f"                                                     |_|                     \n"
+            f"{colors.Reset}"
+        )
+
         if not ans:
             ans = gen_menu_num(
                 f"What would you like to do?\nYou have {colors.LightGreen}${player.money}{colors.Reset} currently.",
-                [f"{colors.Green}Buy{colors.Reset}", f"{colors.Red}Sell{colors.Reset}",
-                 f"{colors.Blue}Back{colors.Reset}"], "Pick an option: ", 0)
+                [f"{colors.LightGreen}Buy{colors.Reset}", f"{colors.LightRed}Sell{colors.Reset}",
+                 f"{colors.LightBlue}Back{colors.Reset}"], "Pick an option: ", 0)
 
         # BUY
         if ans == 1:
@@ -47,33 +61,24 @@ class shop:
                         raise ValueError
 
                     if b != total_index + 1:
-                        c = int(
-                            input(f"\nHow many would you like to {colors.Green}buy{colors.Reset}? (Input number)\n"))
+
+                        print(f"\n{shop_options[a][b - 1].name}: {shop_options[a][b - 1].desc}\n")
+
                         d = gen_menu_yn(
-                            f"Are you sure you want to {colors.Green}buy{colors.Reset} {colors.Yellow}{c}x{colors.Reset} {shop_options[a][b - 1].name}?")
+                            f"Are you sure you want to {colors.Green}buy{colors.Reset} {shop_options[a][b - 1].name}?")
 
                         if d:
 
-                            if (shop_options[a][b - 1].buy * c) > player.money:
+                            if shop_options[a][b - 1].buy > player.money:
                                 print(f"{colors.Red}You don't have enough money!{colors.Reset}\n")
                                 shop.shop(1, shop_options, player)
 
                             else:
-                                if shop_options[a][b - 1].type == "helmet" or shop_options[a][
-                                    b - 1].type == "chestplate" or shop_options[a][b - 1].type == "leggings" or \
-                                        shop_options[a][b - 1].type == "boots":
 
-                                    for index in range(0, c):
-                                        equipment.add_to_inv(shop_options[a][b - 1])
-                                        player.money -= shop_options[a][b-1].buy
+                                equipment.add_to_inv(shop_options[a][b - 1])
+                                player.money -= shop_options[a][b-1].buy
 
-                                    shop.shop(1, shop_options, player)
-
-                                else:
-                                    for index in range(0, c):
-                                        equipment.add_to_inv(shop_options[a][b - 1])
-                                        player.money -= shop_options[a][b - 1].buy
-                                    shop.shop(1, shop_options, player)
+                                shop.shop(1, shop_options, player)
 
                                 print(
                                     f"You bought {shop_options[a][b - 1].name} for {shop_options[a][b - 1].buy}! You now have {colors.LightGreen}{player.money}{colors.Reset}.")
@@ -110,10 +115,13 @@ class shop:
                         shop.shop(2, shop_options, player)
 
                     for index in range(0, len(item_list[a])):
-                        if item_list[a][index].sell is None:
+
+                        if item_list[a][index].sell is None or item_list[a][index].sell < 0:
                             print(f"{index + 1}. {item_list[a][index].name}: Unsellable!")
+
                         else:
                             print(f"{index + 1}. {item_list[a][index].name}: ${item_list[a][index].sell}")
+
                         total_index = index + 1
                     print(f"{total_index + 1}. Back\n")
 

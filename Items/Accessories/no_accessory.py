@@ -18,8 +18,8 @@ class no_accessory:
     type = "accessory"
 
     recipe = {}
-    sell = 12.5
-    buy = 25.0
+    sell = None
+    buy = 0
 
     lvl_req = 0
 

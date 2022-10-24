@@ -20,9 +20,31 @@ class equipment:
 
         equipment.check_for_none()
 
+        print(
+            f"{colors.LightRed}\n\n\n\n"
+            f" _____ _                ___                                  \n"
+            f"|_   _| |              / _ \                                 \n"
+            f"  | | | |__   ___     / /_\ \_ __ _ __ ___   ___  _ __ _   _ \n"
+            f"  | | | '_ \ / _ \    |  _  | '__| '_ ` _ \ / _ \| '__| | | |\n"
+            f"  | | | | | |  __/    | | | | |  | | | | | | (_) | |  | |_| |\n"
+            f"  \_/ |_| |_|\___|    \_| |_/_|  |_| |_| |_|\___/|_|   \__, |\n"
+            f"                                                        __/ |\n"
+            f"                                                       |___/ \n"
+            f"{colors.Reset}"
+        )
+
+        print(f"\n{colors.LightYellow}Here's what you have equipped right now: {colors.Reset}\n\n"
+              f"Weapon: {equipment.player.equipped[0].name}\n"
+              f"Helmet: {equipment.player.equipped[1].name}\n"
+              f"Chestplate: {equipment.player.equipped[2].name}\n"
+              f"Leggings: {equipment.player.equipped[3].name}\n"
+              f"Boots: {equipment.player.equipped[4].name}\n"
+              f"Accessory: {equipment.player.equipped[5].name}\n"
+              f"Abilities: {equipment.player.abilities[0].name}, {equipment.player.abilities[1].name}, {equipment.player.abilities[2].name}, {equipment.player.abilities[3].name}")
+
         ans = gen_menu_num("What would you like to do?",
-                           ["Switch Equipment or De-Equip", "Swap Abilities", "View your Current Inventory",
-                            "View your Stats", "Leave"],
+                           [f"{colors.LightYellow}Switch Equipment or De-Equip{colors.Reset}", f"{colors.LightMagenta}Swap Abilities{colors.Reset}", f"{colors.LightGreen}View your Current Inventory{colors.Reset}",
+                            f"{colors.LightCyan}View your Stats{colors.Reset}", f"{colors.LightRed}Leave{colors.Reset}"],
                            "What do you want to do?", 0)
 
         if ans == 1:

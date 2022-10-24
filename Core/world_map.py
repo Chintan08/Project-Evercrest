@@ -1,6 +1,6 @@
 from Core.menus import *
 from Kingdoms.Stronia.stronia import stronia
-from Saves.save_and_load import save_and_load
+from Utility.save_and_load import save_and_load
 
 
 class world_map:
@@ -12,15 +12,15 @@ class world_map:
         player.return_to_world(world_map)
 
         ans = gen_menu_num("Where would you like to go?", [f"{colors.LightYellow}Stronia{colors.Reset}",
-                                                           f"{colors.LightYellow}Valatene{colors.Reset}",
-                                                           f"{colors.LightYellow}Drummond{colors.Reset}",
-                                                           f"{colors.LightYellow}Jargus{colors.Reset}",
-                                                           f"{colors.LightYellow}Zanio{colors.Reset}",
-                                                           f"{colors.LightYellow}Faronwood{colors.Reset}",
-                                                           f"{colors.LightYellow}Cyliac{colors.Reset}",
-                                                           f"{colors.LightYellow}Rendagger{colors.Reset}",
-                                                           f"{colors.LightYellow}Shellamond{colors.Reset}",
-                                                           f"{colors.LightYellow}Krion{colors.Reset}",
+                                                           #f"{colors.LightYellow}Valatene{colors.Reset}",
+                                                           #f"{colors.LightYellow}Drummond{colors.Reset}",
+                                                           #f"{colors.LightYellow}Jargus{colors.Reset}",
+                                                           #f"{colors.LightYellow}Zanio{colors.Reset}",
+                                                           #f"{colors.LightYellow}Faronwood{colors.Reset}",
+                                                           #f"{colors.LightYellow}Cyliac{colors.Reset}",
+                                                           #f"{colors.LightYellow}Rendagger{colors.Reset}",
+                                                           #f"{colors.LightYellow}Shellamond{colors.Reset}",
+                                                           #f"{colors.LightYellow}Krion{colors.Reset}",
                                                            f"{colors.Red}Save & Quit Game{colors.Red}"],
                            "Pick an option to learn more, and to go there: ", .075)
 
@@ -29,7 +29,7 @@ class world_map:
         kingdoms = {1: stronia}
 
         # if answer is quit game, quits game
-        if ans == 11:
+        if ans == 2:
             save_and_load.save(player)
             quit()
 
@@ -38,7 +38,6 @@ class world_map:
         selected_kingdom = kingdoms[ans](player)
 
         # Asks if you'd like to go to the chosen kingdom. If you do, you get taken to their menu prompt.
-        # TODO: Add Quest Reminders in each Kingdom once Quests are implemented
         a = gen_menu_yn(f"{selected_kingdom.world_desc} \n{colors.LightCyan}Would you like to go there?{colors.Reset}")
         if a:
             selected_kingdom.menu_prompt()

@@ -19,8 +19,8 @@ class dev_strike:
            f"\n{colors.Magenta}Type: {colors.LightMagenta}{style.name}{colors.Reset}" \
            f"\n{colors.Blue}Special: {colors.LightBlue}If casted only once, and your weapon class is Brawling, deal an extra 10 damage.{colors.Reset}" \
            f"\n{colors.Green}Special Cooldown: {colors.LightGreen}{cooldown-1} Rounds" \
-           f"\n{colors.Red}Damage: {colors.LightRed}35 + 15% of your damage. You take 10% of mitigated damage dealt." \
-           f"\n{colors.Yellow}Level Bonus: {colors.LightYellow}"
+           f"\n{colors.Red}Damage: {colors.LightRed}15 + 25% of your damage. You take 10% of mitigated damage dealt." \
+           f"\n{colors.Yellow}Level Bonus: {colors.LightYellow}Gain 3 bonus damage on your special for each Brawling level.{colors.Reset}"
 
     cur_cd = 0
 
@@ -33,11 +33,7 @@ class dev_strike:
 
     def action(self, combat, caster, casted):
 
-        bonus_damage = 0
-        for index in range(0, caster.combat_level["brawler"]):
-            bonus_damage += 5
-
-        base_dmg = (15 + (.15 * caster.dmg) + bonus_damage)
+        base_dmg = (15 + (.25 * caster.dmg))
         damage.deal(combat, caster, casted, base_dmg, False, 0, 0, self.style)
 
         # only deal damage to yourself if you actually landed a hit
@@ -65,6 +61,10 @@ class dev_strike:
         if count == 1 and combat.swing == 0 and self.cur_cd <= 0 and weapon_class == "brawling":
             self.cur_cd = self.cooldown
 
-            dialogue.dia(None, f"\n{caster.name} has gotten {self.name}'s special, {colors.Magenta}and has dealt {colors.LightMagenta}10 {colors.Magenta}extra damage with their brawling weapon!{colors.Reset}")
+            bonus_damage = 0
+            for index in range(0, caster.combat_level["brawler"]):
+                bonus_damage += 3
 
-            casted.hp -= 10
+            dialogue.dia(None, f"\n{caster.name} has gotten {self.name}'s special, {colors.Magenta}and is dishing out more damage!{colors.Reset}")
+
+            damage.deal(combat, caster, casted, (10 + bonus_damage), False, 0, 0, self.style)

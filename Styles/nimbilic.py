@@ -14,8 +14,8 @@ class nimbilic:
     name = f"{colors.Yellow}Nimbilic{colors.Reset}"
     desc = f"A Nimbilic combo will cause another attack to occur, that can crit for 2x damage. The crit chance is a percentage of yours.\n" \
            f"\n{colors.Magenta}Enhancers{colors.Reset}:\n" \
-           f"Eldric: Increases the conversion percentage of your critical chance.\n" \
-           f"Standard: Increases the flat damage of the attack.\n" \
+           f"Eldric: Increases the conversion percentage of your critical chance by 35% for each Eldric style.\n" \
+           f"Standard: Increases the flat damage of the attack by 10% for each Standard style.\n" \
            f"{colors.Yellow}Level Bonus: Increase the critical strike amplifier by 10% per level{colors.LightYellow}\n"
 
     # TODO: nimbilic level bonus

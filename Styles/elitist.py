@@ -13,8 +13,8 @@ class elitist:
     name = f"{colors.LightRed}Elitist{colors.Reset}"
     desc = f"\nAn Elitist Combo cuts through 25% of the enemy's flat armor.\n" \
            f"{colors.Magenta}Enhancers{colors.Reset}:\n" \
-           f"Brawler: Does extra damage after armor penetration.\n" \
-           f"Resolute: Reduces the amount of flat armor even further." \
+           f"Brawler: Deals 30 extra flat damage per Brawler style.\n" \
+           f"Resolute: Reduces the amount of flat armor by 5 for each Resolute style." \
            f"{colors.Yellow}Level Bonus: Increases the base damage dealt by 5 for each Elitist level{colors.LightYellow}\n\n"
 
     # TODO: elitist level bonus

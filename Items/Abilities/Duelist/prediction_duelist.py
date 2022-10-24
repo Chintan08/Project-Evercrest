@@ -15,7 +15,7 @@ class prediction_duelist:
     # +1
     cooldown = 9
 
-    name = f"{colors.LightMagenta}Prediction: Brawler{colors.Reset}"
+    name = f"{colors.LightMagenta}Prediction: Duelist{colors.Reset}"
     desc = f"A good duelist studies their opponent. When they are confident, they predict your next move. And if they're right, they suddenly become confident enough to strike even harder.\n" \
            f"Predict your opponent's third swing style. If it is a Duelist ability, gain an extra swing on your next turn. If you've guessed wrong, take damage equal to 15% of your maxHP. This goes on cooldown for 4 turns.\n" \
            f"When you enter combat, the name will be {colors.LightMagenta}Obscured{colors.Reset}. You will not see the prediction type, and neither will your opponent." \

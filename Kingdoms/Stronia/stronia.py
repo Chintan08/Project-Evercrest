@@ -10,7 +10,7 @@ from Kingdoms.Stronia.fort_anvil import fort_anvil
 from Kingdoms.Stronia.heart_of_stronia import heart_of_stronia
 from Kingdoms.Stronia.the_canyon import the_canyon
 from Kingdoms.Stronia.the_deep_prisons import the_deep_prisons
-from Saves.save_and_load import save_and_load
+from Utility.save_and_load import save_and_load
 from Utility.equipment import equipment
 from Utility.combat import combat
 from Utility.shop import shop
@@ -27,11 +27,11 @@ class stronia:
     name = "Stronia"
 
     # TODO: change these descriptions
-    undiscovered_desc = f"{colors.Cyan}\nYou enter the Stronia Mountain Valley and find yourself looking at a giant, stone fort wall. Behind it, you see many forgers metalworking. You are in Stronia.{colors.Reset}"
-    world_desc = f"\nStronia is the home to the greatest metal workers of all time.\n"
-    desc = f"\n{colors.Cyan}A once grand kingdom, shrunken down by its old wars. Now, it resides in the Stronia " \
-           f"Mountain " \
-           f"Valley, its citizens forging the greatest items known to Evercrest.{colors.Reset}\n"
+    undiscovered_desc = f"{colors.Cyan}\nAs you walk through the gates of Stronia, you smell the smoke of the furnaces, you feel the heat of the fires, and you taste the drive of each individual here. As you look around, you are surrounded by dry mountains. Welcome to Stronia!{colors.Reset}"
+    world_desc = f"\nStronia is a northern kingdom hidden in the top left corner of Evercrest. Its dry climate invites dry creatures, but there are many rewards to be gotten.\n"
+    desc = f"\n{colors.Cyan}Stronia, at one point, was a powerhouse looking to dominate Evercrest! However, many, many years ago, Valatene had stood up against Stronia and casted them into the corner of Evercrest." \
+           f"With the new Stronia being a shadow of its former self, it has moved on to becoming an economic empire founded upon smithing. Stronia is home to rich materials, and it has a monopoly of it." \
+           f"Stronia is dangerous, just as much as any kingdom. But with its rich history, and valuable resources, it is the perfect kingdom for an adventurer to reside in.{colors.Reset}\n"
 
     type = "location"
 
@@ -200,8 +200,8 @@ class stronia:
 
                 self.tier += 1
 
-                # heal player by 25% of their maxhp if they win
-                self.player.hp += (.25 * self.player.maxhp)
+                # heal player by 15% of their maxhp if they win
+                self.player.hp += (.15 * self.player.maxhp)
                 if self.player.hp > self.player.maxhp:
                     self.player.hp = self.player.maxhp
 

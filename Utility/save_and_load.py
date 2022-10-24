@@ -96,3 +96,13 @@ class save_and_load:
         loaded_lex.lexicon_dict = jsonpickle.decode(discovered, keys=True)
 
         return loaded, loaded_lex
+
+    # checks if there is a saved game
+    @staticmethod
+    def check_if_save():
+
+        if sum(1 for line in open("Saves/player1.json")) < 1:
+            return 0
+
+        else:
+            return 1

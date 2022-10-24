@@ -8,10 +8,10 @@ class brawler:
     type = "style"
     style = "brawler"
     name = f"{colors.Red}Brawler{colors.Reset}"
-    desc = f"\nA Brawler Combo that leaves the opponent with a bleeding effect.\n" \
+    desc = f"\nA Brawler Combo will leave your opponent with a devastating bleed. The bleed can be enhanced by the styles below.\n" \
            f"{colors.Magenta}Enhancers{colors.Reset}:\n" \
-           f"Elitist: Severity of the bleed increases.\n" \
-           f"Nimbilic: Increases the duration of the bleed." \
+           f"Elitist: Damage of the bleed increases by 10 for each Elitist style.\n" \
+           f"Nimbilic: Increases the duration of the bleed by 1 for each Nimbilic style.\n" \
            f"{colors.Yellow}Level Bonus: Increase the damage of the bleed by 3 for each Brawler level{colors.LightYellow}\n\n"
 
     # TODO: brawler level bonus

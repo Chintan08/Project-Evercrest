@@ -48,6 +48,8 @@ class mountain_wolf:
            f"{colors.Magenta}CRC: {colors.LightMagenta}{crc} {colors.Magenta}CRC\n" \
            f"{colors.Blue}SPD Range: {colors.LightBlue}{speed_range[0]} - {speed_range[1]} {colors.Blue}SPD{colors.Reset}\n" \
            f"{colors.Cyan}XP Range: {colors.LightCyan}{xp_drop_range[0]} - {xp_drop_range[1]} {colors.Cyan}XP{colors.Reset}" \
+           f"{colors.Yellow}Weapon Class: {colors.LightYellow}{wclass.upper()}" \
+           f"{colors.Magenta}Combat Levels: {colors.LightMagenta} Nimbilic: 1, Standard: 1" \
            f"{colors.White}Abilities: {abilities[0].name}, {abilities[1].name}\n" \
            f"{colors.Yellow}Drops: {wolf_pelt.name}\n"
 

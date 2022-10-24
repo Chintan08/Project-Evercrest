@@ -51,7 +51,9 @@ class baby_golagmite:
            f"{colors.Blue}SPD Range: {colors.LightBlue}{speed_range[0]} - {speed_range[1]} {colors.Blue}SPD{colors.Reset}\n" \
            f"{colors.Cyan}XP Range: {colors.LightCyan}{xp_drop_range[0]} - {xp_drop_range[1]} {colors.Cyan}XP{colors.Reset}" \
            f"{colors.White}Abilities: {abilities[0].name}\n" \
-           f"{colors.Yellow}Drops: {golagtatite.name}\n"
+           f"{colors.Yellow}Weapon Class: {colors.LightYellow}{wclass.upper()}" \
+           f"{colors.Magenta}Combat Levels: {colors.LightMagenta} Resolute: 1" \
+           f"{colors.Yellow}Drops: {golagtatite.name} (50% Chance)\n"
 
     def __init__(self, maxhp, armor, dmg, crc, speed):
         self.maxhp = maxhp

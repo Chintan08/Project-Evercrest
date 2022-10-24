@@ -13,8 +13,8 @@ class standard:
     name = f"{colors.White}Standard{colors.Reset}"
     desc = f"A Standard Combo will deal flat damage to your opponent.\n" \
            f"\n{colors.Magenta}Enhancers{colors.Reset}:\n" \
-           f"Eldric: Increases MaxHP damage.\n" \
-           f"Duelist: Increases flat damage.\n" \
+           f"Eldric: Increases MaxHP damage by 5% for each Eldric style.\n" \
+           f"Duelist: Increases flat damage by 20 for each Duelist style.\n" \
            f"{colors.Yellow}Level Bonus: Deal an extra base 5 damage per Standard level{colors.LightYellow}\n"
 
     @staticmethod
@@ -50,4 +50,3 @@ class standard:
         dialogue.dia(None, f"\n{colors.LightMagenta}{caster.name} has performed a {standard.name} {colors.LightMagenta}Combo!{colors.Reset}")
 
         damage.deal(combat, caster, casted, dmg, False, 0, 0, standard)
-

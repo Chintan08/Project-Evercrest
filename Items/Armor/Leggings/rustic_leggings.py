@@ -38,7 +38,7 @@ class rustic_leggings:
     name = f"{colors.White}Rustic Leggings{colors.Reset}"
 
     # ADD ALL VARIABLES CHANGED TO DESCRIPTION
-    desc = f"This helmet has had better days, but it still protects you, technically..." \
+    desc = f"These leggings have had better days, but it still protects you, technically..." \
            f"\n{colors.Cyan}LVL REQUIRED: {colors.LightCyan}{lvl_req}{colors.Reset}" \
            f"\n{colors.Green}HP: {colors.LightGreen}{hp}" \
            f"\n{colors.Yellow}Armor: {colors.LightYellow}{armor}" \

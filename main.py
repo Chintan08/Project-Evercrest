@@ -6,19 +6,12 @@ from Core.character_creator import char_create
 from Core.lexicon import lexicon
 from Core.menus import gen_menu_yn, gen_menu_num
 from Core.world_map import world_map
-from Items.Abilities.Resolute.body_bash import body_bash
-from Items.Abilities.Nimbilic.quick_cuts import quick_cuts
-from Items.Abilities.Standard.ignition import ignition
 from Items.Abilities.Standard.stab import stab
-from Items.Abilities.Standard.venom_strike import venom_strike
-from Items.Materials.wolf_pelt import wolf_pelt
-from Items.Weapons.stronias_heirloom import stronias_heirloom
-from Saves.save_and_load import save_and_load
+from Utility.save_and_load import save_and_load
 from Utility.colors import colors
 from Utility.dialogue import dialogue
 from Utility.equipment import equipment
 from Items.Weapons.wooden_sword import wooden_sword
-from Items.Abilities.Brawling.dev_strike import dev_strike
 
 # initiates color for terminal
 os.system("color")
@@ -71,15 +64,22 @@ while True:
             pass
 
     if answer == 2:
-        dialogue.dia(None, "Loading your game...")
-        player, lexicon = save_and_load.load()
-        player.lexicon = lexicon
-        lexicon.player = player
-        equipment(player)
-        player.update_stats(player.level)
-        dialogue.dia(None, f"Welcome back, {player.name}!")
 
-        break
+        dialogue.dia(None, "Loading your game...")
+
+        if save_and_load.check_if_save() == 0:
+            print(f"{colors.LightRed}You don't have a saved game to load!{colors.Reset}")
+            pass
+
+        else:
+            player, lexicon = save_and_load.load()
+            player.lexicon = lexicon
+            lexicon.player = player
+            equipment(player)
+            player.update_stats(player.level)
+            dialogue.dia(None, f"Welcome back, {player.name}!")
+
+            break
 
     if answer == 3:
         quit(0)

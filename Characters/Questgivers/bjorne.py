@@ -10,8 +10,9 @@ from Utility.dialogue import dialogue
 class bjorne:
 
     name = f"{colors.Magenta}Bjorne{colors.Reset}"
-    desc = "An infamous gossiper of Stronia. As much as people don't like him, though, he is a very useful person.\n" \
-           "He is the quest giver of Stronia. Go to him if you want to embark on more adventures."
+    desc = "No one knows who Bjorne is. Where he comes from, where he lives, what he does, is unknown.\n" \
+           "What is known though, is his passion to listen in on everyone's conversations! This may also be why no one really likes him." \
+           f"While his gossip skills are annoying, they are useful to you. With him, you'll be able to embark on many quests in Stronia."
 
     type = "character"
 
@@ -24,8 +25,20 @@ class bjorne:
         # checks if discovered
         if not player.lexicon.is_discovered(bjorne):
             print("\n")
-            dialogue.dia(bjorne.name, f"You come to me for a quest?")
+            dialogue.dia(None, f"As you turn the corner of a marketplace, you come across a small, white-bearded man sitting against the wall, all scrunched up.")
+            dialogue.dia(player.name, "I'm sorry... are you homeless?")
+            dialogue.dia(f"{colors.LightBlue}???{colors.Reset}", "WHAT?! No!")
+            dialogue.dia(None, "His eyes flare up at you. But when he got a better look at you, his eyes became normal.")
+            dialogue.dia(f"{colors.LightBlue}???{colors.Reset}", "I know you! I've heard about you already, some odd traveler.")
+            dialogue.dia(player.name, "Who are you?")
+            dialogue.dia(f"{colors.LightBlue}???{colors.Reset}", f"I am {bjorne.name}! And I am probably going to be your new best friend!")
+
             player.lexicon.update_discovery(bjorne)
+
+            dialogue.dia(player.name, "How so?")
+            dialogue.dia(bjorne.name, "I have ears that listen to all of Stronia! And you are an adventurer! I can give you adventures while you stay in Stronia!")
+            dialogue.dia(player.name, "Okay... I'll let you know if I'm bored. Or something like that.")
+            dialogue.dia(bjorne.name, f"Perfect! You'd be surprised how much I know.")
 
         # GOLAGMITE INFESTATION #
         if bjorne.quests[0].can_do_quest(player):

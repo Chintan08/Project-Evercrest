@@ -1,7 +1,7 @@
 from time import sleep
 
 from Enemies.Stronia.Bosses.gray_bull import gray_bull
-from Saves.save_and_load import save_and_load
+from Utility.save_and_load import save_and_load
 from Utility.colors import colors
 from Utility.dialogue import dialogue
 from Utility.list_check import list_check
@@ -29,7 +29,7 @@ class distressing_grayed_bull(object):
 
     def start(self, player, questgiver):
 
-        distressing_grayed_bull.qname = questgiver.name
+        self.qname = questgiver.name
 
         dialogue.dia(None, "You approach Bjorne, and you see him staring at you, as if he is studying you.")
         dialogue.dia(questgiver.name, "Hm...")
@@ -50,11 +50,11 @@ class distressing_grayed_bull(object):
 
     def check(self, player):
 
-        if gray_bull in player.enemies_killed:
+        if gray_bull.name in player.enemies_killed:
 
-            dialogue.dia(distressing_grayed_bull.qname, "You did it?!")
+            dialogue.dia(self.qname, "You did it?!")
             dialogue.dia(player.name, "Yeah! That was... rough. But I did it!")
-            dialogue.dia(distressing_grayed_bull.qname, "The people of Stronia want to pay you for it. Here you go!")
+            dialogue.dia(self.qname, "The people of Stronia want to pay you for it. Here you go!")
             self.give_reward(player)
             player.returning(0)
 

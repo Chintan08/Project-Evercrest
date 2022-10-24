@@ -12,8 +12,8 @@ class eldric:
     name = f"{colors.LightMagenta}Eldric{colors.Reset}"
     desc = f"An Eldric Combo will cripple your opponent, reducing Damage, Armor% and Armor, and Speed for two rounds.\n" \
            f"\n{colors.Magenta}Enhancers{colors.Reset}:\n" \
-           f"Resolute: Increases Damage and Speed Cripple\n" \
-           f"Nimbilic: Increases Armor and Armor% Cripple\n" \
+           f"Resolute: Increases Damage and Speed Cripple by 8% and 5% respectively.\n" \
+           f"Nimbilic: Increases Armor and Armor% Cripple by 5% and 2% respectively.\n" \
            f"{colors.Yellow}Level Bonus: Increases the Damage cripple by 2% for each Eldric level{colors.LightYellow}\n"
 
     @staticmethod

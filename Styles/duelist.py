@@ -10,8 +10,8 @@ class duelist:
     name = f"{colors.Magenta}Duelist{colors.Reset}"
     desc = f"\nA Duelist Combo will deal flat damage, but ignores your Armor%.\n" \
            f"{colors.Magenta}Enhancers{colors.Reset}:\n" \
-           f"Standard: Increases the flat damage.\n" \
-           f"Eldric: Reduces any flat armor.\n" \
+           f"Standard: Increases the flat damage by 15 for each Standard count.\n" \
+           f"Eldric: Reduces the flat armor of an opponent by 25 for each Eldric style.\n" \
            f"{colors.Yellow}Level Bonus: Deal an extra 5 base damage for each Duelist level{colors.LightYellow}\n"
 
     @staticmethod

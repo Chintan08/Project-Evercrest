@@ -41,15 +41,17 @@ class gray_bull:
     wclass = "brawling"
 
     name = "Grayed Bull"
-    undiscovered_desc = "As you walk closer to Fort Anvil, you feel the ground shake underneath you. You feel a lot warmer than usual, almost as if you feel fire. When you look behind yourself, you unfortunately meet the eyes of a Gray Bull."
-    desc = "A bull that had mutated and became a Grayed. The Gray Bull is incredibly devastating if not controlled properly.\n" \
+    undiscovered_desc = "As you walk closer to The Canyon, you feel the ground shake underneath you. You feel a lot warmer than usual, almost as if you feel fire. When you look behind yourself, you unfortunately meet the eyes of a Gray Bull."
+    desc = "A bull that had mutated and became a Grayed. The Gray Bull is incredibly devastating if not controlled properly. Known as the Distressing Grayed Bull, this bull is the gatekeeper of The Canyon.\n" \
            f"{colors.Green}HP Range: {colors.LightGreen}{hp_range[0]} - {hp_range[1]} {colors.Green}HP\n" \
            f"{colors.Yellow}Armor Range: {colors.LightYellow}{armor_range[0]} - {armor_range[1]} {colors.Yellow}Armor\n" \
            f"{colors.Red}Damage Range: {colors.LightRed}{dmg_range[0]} - {dmg_range[1]} {colors.Red}DMG\n" \
            f"{colors.Magenta}CRC: {colors.LightMagenta}{crc} {colors.Magenta}CRC\n" \
            f"{colors.Blue}SPD Range: {colors.LightBlue}{speed_range[0]} - {speed_range[1]} {colors.Blue}SPD{colors.Reset}\n" \
            f"{colors.Cyan}XP Range: {colors.LightCyan}{xp_drop_range[0]} - {xp_drop_range[1]} {colors.Cyan}XP{colors.Reset}" \
-           f"{colors.White}Abilities: {abilities[0].name}, {abilities[1].name}\n" \
+           f"{colors.White}Abilities: {abilities[0].name}, {abilities[1].name}, {abilities[2].name}\n" \
+           f"{colors.Yellow}Weapon Class: {colors.LightYellow}{wclass.upper()}" \
+           f"{colors.Magenta}Combat Levels: {colors.LightMagenta} Resolute: 2, Elitist: 3, Brawler: 3" \
            f"{colors.Yellow}Drops: {bull_horns.name}\n"
 
     def __init__(self, maxhp, armor, dmg, crc, speed):

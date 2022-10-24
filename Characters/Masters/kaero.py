@@ -14,8 +14,8 @@ from Utility.equipment import equipment
 class kaero:
 
     name = f"{colors.LightYellow}Master Kaero{colors.Reset}"
-    desc = "A massive, menacing Terranox who coincidentally is also an ability master located in Stronia." \
-           "\nHe teaches heavy combat and a little bit on how to brawl with your fists."
+    desc = "Kaero is an Ability Master for Stronia. Ever since he had mutated into a Terranox, he had learnt how to effectively use his fists. And now he looks to teach you the same." \
+           "\nHe tends to teach heavier Elitist/Brawler type abilities, but he is also well rounded."
 
     type = "character"
 
@@ -27,21 +27,22 @@ class kaero:
         kills = player.lexicon.compress_kills()
 
         if not player.lexicon.is_discovered(kaero):
-            dialogue.dia(None, "You come across an alcove, and see a Terranox mediating on the cliffside.")
-            dialogue.dia(player.name, "Who are you?")
-            dialogue.dia(f"{colors.LightBlue}???{colors.Reset}", "Hm? You do not know?")
+            dialogue.dia(None, "As you walk on the cliffsides of the kingdom, you come across a Terranox, absolutely destroying pure stone with just his fists!")
+            dialogue.dia(player.name, "Uhh... who are you?")
+            dialogue.dia(None, f"The Terranox stopped his fist-based rampage, and looked at you.")
+            dialogue.dia(f"{colors.LightBlue}???{colors.Reset}", "Hm?")
             dialogue.dia(None,
-                         "You are surprised he did not fling you off the mountain for interrupting his meditation.")
-            dialogue.dia(player.name, "No, I'm new here. Are you an Ability Master?")
+                         "You are surprised he did not fling you off the mountain for interrupting his guilty pleasure.")
+            dialogue.dia(player.name, "I'm new here. I'm guessing by the whole macho training thing... are you an Ability Master?")
             dialogue.dia(f"{colors.LightBlue}???{colors.Reset}",
-                         f"At least you know that much. I am {kaero.name}, the Ability Master for Stronia.")
+                         f"Is it that obvious? I am {kaero.name}, the Ability Master for Stronia.")
 
             player.lexicon.update_discovery(kaero)
 
             dialogue.dia(kaero.name,
-                         "I can teach you all about Brawling and heavier attacks, but you have to prove to me that you can fight.")
+                         "I can teach you all that the enemies of Stronia know, and perhaps even more!")
             dialogue.dia(kaero.name,
-                         "Prove that to me by fighting off different enemies around Evercrest, and come back to me.")
+                         "Prove that to me by fighting off different enemies around Stronia, and come back to me.")
 
         # QUICK CUTS
         if mountain_wolf.name in player.enemies_killed and kills[mountain_wolf.name] >= 5:

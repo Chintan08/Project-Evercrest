@@ -12,11 +12,10 @@ class resolute:
     name = f"{colors.LightGreen}Resolute{colors.Reset}"
     desc = f"A Resolute Combo will heal you for certain amounts of HP.\n" \
            f"\n{colors.Magenta}Enhancers{colors.Reset}:\n" \
-           f"Duelist: Increases the amount of Flat HP gained.\n" \
-           f"Brawler: Increases the amount of HP from Missing HP.\n" \
+           f"Duelist: Increases the amount of Flat HP gained by 40 for each Duelist style.\n" \
+           f"Brawler: Increases the amount of HP from Missing HP by 12.5% for each Brawler style.\n" \
            f"{colors.Yellow}Level Bonus: Heal an extra 5 HP per Resolute level{colors.LightYellow}\n"
 
-    # TODO: resolute level bonus
     @staticmethod
     def action(combat, caster, casted):
         # these variables are the amount of times a style of an enhancer has occurred
@@ -35,10 +34,12 @@ class resolute:
         for level in range(0, caster.combat_level["resolute"]):
             bonus_healing += 5
 
-        # at base level, heal 20 hp
+        # at base level, heal 10 hp
         base_hp = 10 + bonus_healing
+
         # for every duelist count gain an extra 40 hp
         duelist_count = 40 * d_count
+
         # for every brawler count, gain 12.5% of your missing hp back
         brawler_percent = (.125*b_count) * (caster.maxhp - caster.hp)
 

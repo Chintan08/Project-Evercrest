@@ -9,7 +9,7 @@ class barren_land:
 
     name = "The Barren Lands"
     desc = f"{colors.LightCyan}Stronia is filled with empty lands if you go looking for them. But these lands also pose a great danger...{colors.Reset}"
-    undiscovered_desc = f"{colors.LightCyan}Everywhere you look; nothing. In a kingdom so dense, you can expect to find these kinds of places. Welcome to the Barren Lands.{colors.Reset}"
+    undiscovered_desc = f"{colors.LightCyan}As you venture out the kingdom and into the valley, you are surprised to see nothing around you. Welcome to the Barren Lands.{colors.Reset}"
     type = "location"
 
     # fill this list in with more enemies, and range, which is the probability
@@ -24,7 +24,7 @@ class barren_land:
     @staticmethod
     def pick_enemy():
 
-        enemy = randint(0, 2) # range is not inclusive, so we make sure we do n-1
+        enemy = randint(0, 2)  # range is not inclusive, so we make sure we do n-1
 
         for dict_key in barren_land.enemies:
             if enemy in dict_key:

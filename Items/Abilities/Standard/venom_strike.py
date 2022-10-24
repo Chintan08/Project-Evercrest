@@ -29,7 +29,7 @@ class venom_strike:
            f"\n{colors.Magenta}Type: {colors.LightMagenta}{style.name}{colors.Reset}" \
            f"\n{colors.Blue}Special: {colors.LightBlue}If your opponent is also Burning, deal an extra 12 damage." \
            f"\n{colors.Green}Special Cooldown: {colors.LightGreen}{cooldown-1} Rounds" \
-           f"\n{colors.Red}Damage: {colors.LightRed}12 + 30% of your damage" \
+           f"\n{colors.Red}Damage: {colors.LightRed}8 + 30% of your damage" \
            f"\n{colors.Green}Effect: {colors.LightGreen}If you crit, poison your opponent for 10 damage for 3 turns" \
            f"\n{colors.Yellow}Level Bonus: {colors.LightYellow}For every Standard level, add 3 damage to your special{colors.Reset}"
 

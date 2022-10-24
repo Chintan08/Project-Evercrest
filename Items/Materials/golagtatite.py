@@ -6,7 +6,7 @@ class golagtatite:
     buy = None
 
     name = "Golagtatite"
-    desc = f"{colors.LightCyan}A chunk of a Golagmite.{colors.Reset}\n" \
+    desc = f"{colors.LightCyan}The ore that covers a Golagmite.{colors.Reset}\n" \
            f"\n{colors.Green}BUY PRICE{colors.Reset}: {colors.Green}{buy}{colors.Reset}" \
            f"\n{colors.LightGreen}Sell Price: {colors.Green}${sell}{colors.Reset}"
     type = "material"

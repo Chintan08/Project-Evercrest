@@ -5,12 +5,24 @@ from Items.Armor.Leggings.wolf_pants import wolf_pants
 from Items.Weapons.golagtatite_sword import golagtatite_sword
 from Utility.equipment import *
 
+
 class craft:
 
     @staticmethod
     def crafting(player):
 
         equipment.compress_inventory()
+
+        print(
+            f"{colors.LightYellow}\n\n\n\n"
+            f" _____ _               _    _            _    _                     _     \n"
+            f"|_   _| |             | |  | |          | |  | |                   | |    \n"
+            f"  | | | |__   ___     | |  | | ___  _ __| | _| |__   ___ _ __   ___| |__  \n"
+            f"  | | | '_ \ / _ \    | |/\| |/ _ \| '__| |/ / '_ \ / _ \ '_ \ / __| '_ \ \n"
+            f"  | | | | | |  __/    \  /\  / (_) | |  |   <| |_) |  __/ | | | (__| | | |\n"
+            f"  \_/ |_| |_|\___|     \/  \/ \___/|_|  |_|\_\_.__/ \___|_| |_|\___|_| |_|\n"
+            f"{colors.Reset}"
+        )
 
         confirmed = 0
         can_craft = False
@@ -48,7 +60,7 @@ class craft:
                         recipe_amount = 0
                         for item in craftable[ans - 1][index].recipe:
                             recipe_amount += 1
-                            if item in player.lexion.lexicon_dict[item.type]:
+                            if item in player.lexicon.lexicon_dict[item.type]:
                                 discovery_total += 1
 
                         if not craftable[ans - 1][index].lvl_req > player.level and recipe_amount == discovery_total:

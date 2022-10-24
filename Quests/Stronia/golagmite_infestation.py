@@ -1,6 +1,6 @@
 from time import sleep
 
-from Saves.save_and_load import save_and_load
+from Utility.save_and_load import save_and_load
 from Utility.colors import colors
 from Enemies.Stronia.baby_golagmite import baby_golagmite
 from Utility.dialogue import dialogue
