@@ -2,7 +2,7 @@
 
 Project Evercrest is a terminal RPG based on the lore from the world of Evercrest.
 
-Project Evercrest tries to make a world, comparable to Skyrim, in text. The game is meant to have  a lot of content, and tries to be immersive through it's story telling and choices the player can make.
+Project Evercrest tries to make a world, comparable to Skyrim, in text. The game is meant to have a lot of content, and tries to be immersive through it's story telling and choices the player can make.
 
 Current TODO list:
 
@@ -15,3 +15,5 @@ Current TODO list:
 - Add enough item sets for Stronia specifically
 - Add all Stronia specific abilities
 - Balance out all stats
+
+This project repository is currently depracated. It is being replaced with Project Evercrest 2, with the major change being UI implementation.
